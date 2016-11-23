@@ -7,8 +7,19 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Dialog from 'material-ui/Dialog';
 import {deepOrange500} from 'material-ui/styles/colors';
 import FlatButton from 'material-ui/FlatButton';
+import ol from 'openlayers';
+import {addLocaleData, IntlProvider, defineMessages, injectIntl, intlShape} from 'react-intl';
+import MapPanel from 'boundless-sdk/js/components/MapPanel.jsx';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+
+var map = new ol.Map({
+  layers: [new ol.layer.Tile({title: 'OSM', source: new ol.source.OSM()})],
+  view: new ol.View({
+    center: [0, 0],
+    zoom: 2
+  })
+});
 
 const styles = {
   container: {
@@ -54,8 +65,10 @@ class Main extends Component {
     );
 
     return (
+      <IntlProvider locale="en">
       <MuiThemeProvider muiTheme={muiTheme}>
         <div style={styles.container}>
+          <MapPanel id='map' map={map} />
           <Dialog
             open={this.state.open}
             title="Super Secret Password"
@@ -73,6 +86,7 @@ class Main extends Component {
           />
         </div>
       </MuiThemeProvider>
+      </IntlProvider>
     );
   }
 }

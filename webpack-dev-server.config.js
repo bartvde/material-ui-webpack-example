@@ -42,8 +42,17 @@ const config = {
         test: /\.js$/, // All .js files
         loaders: ['react-hot', 'babel-loader'], // react-hot is like browser sync and babel loads jsx and es6-7
         exclude: [nodeModulesPath],
-      },
+      }, {
+        test: /\.jsx?$/,
+        loader: "babel-loader",
+        include: [path.resolve(__dirname, "node_modules/boundless-sdk")],
+        query: {
+          cacheDirectory: true,
+          presets: ['react', 'es2015']
+        }
+      }
     ],
+    noParse: /dist\/ol.js/
   },
 };
 
