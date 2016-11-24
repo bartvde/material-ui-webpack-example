@@ -21,6 +21,7 @@ const config = {
     host: 'localhost', // Change to '0.0.0.0' for external facing server
   },
   devtool: 'eval',
+  node: {fs: "empty"},
   output: {
     path: buildPath, // Path of output file
     filename: 'app.js',
@@ -38,18 +39,17 @@ const config = {
   module: {
     loaders: [
       {
+        test: /\.json$/,
+        loader: "json-loader"
+      },
+      {
         // React-hot loader and
         test: /\.js$/, // All .js files
         loaders: ['react-hot', 'babel-loader'], // react-hot is like browser sync and babel loads jsx and es6-7
         exclude: [nodeModulesPath],
       }, {
-        test: /\.jsx?$/,
-        loader: "babel-loader",
-        include: [path.resolve(__dirname, "node_modules/boundless-sdk")],
-        query: {
-          cacheDirectory: true,
-          presets: ['react', 'es2015']
-        }
+        test: /\.css$/,
+        loader: "style-loader!css-loader" 
       }
     ],
     noParse: /dist\/ol.js/
