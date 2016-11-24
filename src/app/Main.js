@@ -9,8 +9,8 @@ import {deepOrange500} from 'material-ui/styles/colors';
 import FlatButton from 'material-ui/FlatButton';
 import ol from 'openlayers';
 import {addLocaleData, IntlProvider, defineMessages, injectIntl, intlShape} from 'react-intl';
-import LayerList from 'boundless-sdk/js/components/LayerList';
-import MapPanel from 'boundless-sdk/js/components/MapPanel';
+import LayerList from 'boundless-sdk/components/LayerList';
+import MapPanel from 'boundless-sdk/components/MapPanel';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
