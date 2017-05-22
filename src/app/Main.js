@@ -9,6 +9,43 @@ import {deepOrange500} from 'material-ui/styles/colors';
 import FlatButton from 'material-ui/FlatButton';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import {IntlProvider} from 'react-intl';
+import MapPanel from '@boundlessgeo/sdk/components/MapPanel';
+import ol from 'openlayers';
+
+var map = new ol.Map({
+  controls: [new ol.control.Attribution({collapsible: false})],
+  layers: [
+    new ol.layer.Group({
+      type: 'base-group',
+      title: 'Base maps',
+      layers: [
+        new ol.layer.Tile({
+          type: 'base',
+          title: 'OSM Streets',
+          source: new ol.source.OSM()
+        }),
+        new ol.layer.Tile({
+          type: 'base',
+          title: 'ESRI world imagery',
+          visible: false,
+          source: new ol.source.XYZ({
+            attributions: [
+              new ol.Attribution({
+                html:['Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community']
+              })
+            ],
+            url: 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'
+          })
+        })
+      ]
+    })
+  ],
+  view: new ol.View({
+    center: [0, 0],
+    zoom: 4
+  })
+});
 
 const styles = {
   container: {
@@ -54,8 +91,10 @@ class Main extends Component {
     );
 
     return (
+      <IntlProvider locale="en">
       <MuiThemeProvider muiTheme={muiTheme}>
         <div style={styles.container}>
+          <MapPanel id='map' map={map} />
           <Dialog
             open={this.state.open}
             title="Super Secret Password"
@@ -73,6 +112,7 @@ class Main extends Component {
           />
         </div>
       </MuiThemeProvider>
+      </IntlProvider>
     );
   }
 }
