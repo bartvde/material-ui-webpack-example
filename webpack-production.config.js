@@ -40,6 +40,9 @@ const config = {
         query: {
           cacheDirectory: true,
         },
+      }, {
+        test: /\.css$/,
+        loader: "style-loader!css-loader"
       },
     ],
   },
