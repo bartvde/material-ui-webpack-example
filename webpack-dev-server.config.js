@@ -20,6 +20,7 @@ const config = {
     host: 'localhost', // Change to '0.0.0.0' for external facing server
   },
   devtool: 'eval',
+  node: {fs: "empty"},
   output: {
     path: path.resolve(__dirname, 'build'), // Path of output file
     filename: 'app.js',
@@ -41,6 +42,9 @@ const config = {
         query: {
           cacheDirectory: true,
         },
+      }, {
+        test: /\.css$/,
+        loader: "style-loader!css-loader"
       },
     ],
   },
